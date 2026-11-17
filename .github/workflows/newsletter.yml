@@ -44,8 +44,10 @@ jobs:
       - name: Installer les dépendances
         run: pip install -r requirements-dev.txt
 
+      # Le lint des workflows (actionlint) est vérifié par tests.yml à chaque push :
+      # on ne le rejoue pas ici pour qu'une nouvelle règle de style ne bloque jamais un envoi.
       - name: Vérifier le code (tests)
-        run: python -m pytest -q
+        run: python -m pytest -q --deselect tests/test_workflows.py::test_actionlint
 
       - name: Générer (et envoyer) le numéro
         env:
@@ -59,11 +61,11 @@ jobs:
           BREVO_SENDER_EMAIL: ${{ secrets.BREVO_SENDER_EMAIL }}
           SITE_URL: ${{ vars.SITE_URL }}
         run: |
-          args=""
-          if [ "$DRY_RUN" = "true" ]; then args="--dry-run"; fi
-          if [ "$FORCE" = "true" ]; then args="$args --force"; fi
-          echo "Lancement : python main.py $args"
-          python main.py $args
+          args=()
+          if [ "$DRY_RUN" = "true" ]; then args+=(--dry-run); fi
+          if [ "$FORCE" = "true" ]; then args+=(--force); fi
+          echo "Lancement : python main.py ${args[*]}"
+          python main.py "${args[@]}"
 
       - name: Joindre l'aperçu du numéro (artifact)
         if: ${{ !cancelled() }}
@@ -87,7 +89,7 @@ jobs:
             exit 0
           fi
           git commit -m "Numéro de la semaine $(date -u +%G-W%V) [automatique]"
-          for i in 1 2 3; do
+          for _ in 1 2 3; do
             git pull --rebase --autostash && git push && exit 0
             echo "Push refusé, nouvel essai dans 10 s..."; sleep 10
           done
