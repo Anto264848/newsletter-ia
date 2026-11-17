@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Sitemap: https://anto264848.github.io/newsletter-ia/sitemap.xml
