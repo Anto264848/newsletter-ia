@@ -1,0 +1,196 @@
+# Sources d'actualités. Ajoutez / retirez / désactivez librement.
+#
+# Champs :
+#   id        : identifiant unique (lettres, chiffres, _)
+#   name      : nom affiché dans la newsletter ("Source : ...")
+#   type      : "rss" (RSS ou Atom) ou "hackernews" (API Algolia)
+#   url       : adresse du flux (pour type rss)
+#   lang      : "fr" ou "en"
+#   weight    : importance de la source dans le score (0.5 = faible, 1 = normal, 1.5 = forte)
+#   filter    : true = flux généraliste, on ne garde que les articles qui parlent d'IA / data
+#   enabled   : false pour désactiver sans supprimer
+#
+# Une source en panne n'arrête jamais la newsletter : elle est simplement ignorée (avec un log).
+# Statut vérifié le 17/11/2026 (voir DECISIONS.md).
+
+sources:
+  # --- Blogs officiels des acteurs de l'IA ---
+  - id: google_ai
+    name: "Google (blog IA)"
+    type: rss
+    url: "https://blog.google/technology/ai/rss/"
+    lang: en
+    weight: 1.2
+
+  - id: google_deepmind
+    name: "Google DeepMind"
+    type: rss
+    url: "https://deepmind.google/blog/rss.xml"
+    lang: en
+    weight: 1.0
+
+  - id: google_research
+    name: "Google Research"
+    type: rss
+    url: "https://research.google/blog/rss/"
+    lang: en
+    weight: 0.6
+
+  - id: openai
+    name: "OpenAI"
+    type: rss
+    url: "https://openai.com/news/rss.xml"
+    lang: en
+    weight: 1.3
+
+  # Anthropic ne publie pas de flux RSS officiel : on utilise un miroir communautaire
+  # (projet open source Olshansk/rss-feeds sur GitHub). Désactivez-le s'il disparaît.
+  - id: anthropic
+    name: "Anthropic"
+    type: rss
+    url: "https://raw.githubusercontent.com/Olshansk/rss-feeds/main/feeds/feed_anthropic_news.xml"
+    lang: en
+    weight: 1.2
+
+  # Le blog ai.meta.com n'a plus de flux RSS (404). On utilise le blog ingénierie de Meta (rubrique ML).
+  - id: meta_engineering_ml
+    name: "Meta (ingénierie IA)"
+    type: rss
+    url: "https://engineering.fb.com/category/ml-applications/feed/"
+    lang: en
+    weight: 0.7
+
+  - id: mistral
+    name: "Mistral AI"
+    type: rss
+    url: "https://mistral.ai/rss.xml"
+    lang: en
+    weight: 1.2
+
+  - id: huggingface
+    name: "Hugging Face"
+    type: rss
+    url: "https://huggingface.co/blog/feed.xml"
+    lang: en
+    weight: 0.7
+
+  # --- Médias anglophones ---
+  - id: mit_tech_review
+    name: "MIT Technology Review"
+    type: rss
+    url: "https://www.technologyreview.com/topic/artificial-intelligence/feed"
+    lang: en
+    weight: 1.3
+
+  - id: the_verge_ai
+    name: "The Verge"
+    type: rss
+    url: "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml"
+    lang: en
+    weight: 1.2
+
+  - id: techcrunch_ai
+    name: "TechCrunch"
+    type: rss
+    url: "https://techcrunch.com/category/artificial-intelligence/feed/"
+    lang: en
+    weight: 1.1
+
+  - id: ars_technica_ai
+    name: "Ars Technica"
+    type: rss
+    url: "https://arstechnica.com/ai/feed/"
+    lang: en
+    weight: 1.1
+
+  - id: wired_ai
+    name: "Wired"
+    type: rss
+    url: "https://www.wired.com/feed/tag/ai/latest/rss"
+    lang: en
+    weight: 1.0
+
+  # --- Médias francophones ---
+  - id: numerama
+    name: "Numerama"
+    type: rss
+    url: "https://www.numerama.com/feed/"
+    lang: fr
+    weight: 1.2
+    filter: true
+
+  - id: les_numeriques_ia
+    name: "Les Numériques"
+    type: rss
+    url: "https://www.lesnumeriques.com/intelligence-artificielle/rss.xml"
+    lang: fr
+    weight: 1.1
+
+  - id: le_monde_informatique_ia
+    name: "Le Monde Informatique"
+    type: rss
+    url: "https://www.lemondeinformatique.fr/flux-rss/thematique/intelligence-artificielle/rss.xml"
+    lang: fr
+    weight: 1.0
+
+  - id: siecle_digital_ia
+    name: "Siècle Digital"
+    type: rss
+    url: "https://siecledigital.fr/category/intelligence-artificielle/feed/"
+    lang: fr
+    weight: 1.1
+
+  - id: journal_du_net_ia
+    name: "Journal du Net"
+    type: rss
+    url: "https://www.journaldunet.com/intelligence-artificielle/rss/"
+    lang: fr
+    weight: 0.9
+
+  - id: zeroone_net
+    name: "01net"
+    type: rss
+    url: "https://www.01net.com/feed/"
+    lang: fr
+    weight: 1.0
+    filter: true
+
+  - id: frandroid
+    name: "Frandroid"
+    type: rss
+    url: "https://www.frandroid.com/feed"
+    lang: fr
+    weight: 0.9
+    filter: true
+
+  - id: actuia
+    name: "ActuIA"
+    type: rss
+    url: "https://www.actuia.com/feed/"
+    lang: fr
+    weight: 0.9
+
+  # L'Usine Digitale bloque les robots (HTTP 403) au 17/11/2026. Réactivez si cela change.
+  - id: usine_digitale
+    name: "L'Usine Digitale"
+    type: rss
+    url: "https://www.usine-digitale.fr/rss"
+    lang: fr
+    weight: 1.0
+    enabled: false
+
+  # --- Agrégateur communautaire ---
+  - id: hackernews
+    name: "Hacker News"
+    type: hackernews
+    lang: en
+    weight: 0.8
+    min_points: 150
+    queries:
+      - "AI"
+      - "LLM"
+      - "OpenAI"
+      - "Anthropic"
+      - "Gemini"
+      - "machine learning"
+      - "data"

@@ -1,0 +1,17 @@
+{% extends "site/base.html.j2" %}
+{% block content %}
+<section class="wrap narrow page">
+  <h1>Archives</h1>
+  <p class="intro">Tous les numéros de {{ name }}, du plus récent au plus ancien.</p>
+  {% if issues %}
+  <ul class="issue-list">
+    {% for i in issues %}
+    <li><a href="{{ i.week }}/">{{ i.title }}</a><span>N°{{ i.number }} · {{ i.date_label }}</span><p>{{ i.intro }}</p></li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>Le premier numéro arrive lundi prochain. Inscrivez-vous pour ne pas le manquer !</p>
+  {% endif %}
+  {% include "site/_subscribe.html.j2" %}
+</section>
+{% endblock %}

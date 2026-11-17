@@ -1,0 +1,42 @@
+{{ name | upper }} · n°{{ issue.number }} · {{ issue.date_label }}
+
+{{ issue.title }}
+{{ "=" * (issue.title | length) }}
+
+{{ issue.intro }}
+
+
+L'INFO DE LA SEMAINE
+--------------------
+{{ issue.top.headline }}
+
+{{ issue.top.summary }}
+
+Pourquoi c'est important pour vous :
+{{ issue.top.why_it_matters }}
+
+→ Lire l'article ({{ issue.top.source }}) : {{ issue.top.url }}
+
+
+EN BREF
+-------
+{% for b in issue.briefs %}
+* {{ b.headline }}
+  {{ b.summary }}
+  Source : {{ b.source }} — {{ b.url }}
+{% endfor %}
+
+LE MOT DE LA SEMAINE : {{ issue.word.term }}
+{{ issue.word.explanation }}
+
+
+L'OUTIL À TESTER : {{ issue.tool.name }}{% if issue.tool.url %} — {{ issue.tool.url }}{% endif %}
+{{ issue.tool.description }}
+
+
+{{ issue.conclusion }}
+
+--
+Newsletter rédigée avec l'aide d'une intelligence artificielle, à partir d'articles de presse cités.
+{% if archives_url %}Archives : {{ archives_url }}
+{% endif %}Se désinscrire : {{ unsubscribe_url }}

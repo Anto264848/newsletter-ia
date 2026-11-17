@@ -1,0 +1,49 @@
+{% extends "site/base.html.j2" %}
+{% block content %}
+<section class="hero">
+  <div class="wrap">
+    <p class="kicker">Newsletter gratuite · chaque lundi</p>
+    <h1>{{ name }}</h1>
+    <p class="tagline">{{ tagline }}</p>
+    <a class="btn" href="#inscription">Je m'inscris gratuitement</a>
+  </div>
+</section>
+
+<section class="wrap pitch">
+  <div class="cards">
+    <div class="card"><h2>L'info de la semaine</h2><p>La nouvelle la plus importante, expliquée simplement, avec ce que ça change pour vous.</p></div>
+    <div class="card"><h2>En bref</h2><p>4 à 6 autres actus résumées en quelques lignes, avec le lien vers la source.</p></div>
+    <div class="card"><h2>Le mot de la semaine</h2><p>Un terme de l'IA ou de la data enfin compréhensible, grâce à une analogie du quotidien.</p></div>
+    <div class="card"><h2>L'outil à tester</h2><p>Un outil d'IA gratuit et grand public à essayer, avec ses limites.</p></div>
+  </div>
+  <p class="promise">Sans jargon, sans pub, 5 minutes de lecture. Pour les curieux, pas pour les ingénieurs.</p>
+</section>
+
+<div class="wrap narrow">
+{% include "site/_subscribe.html.j2" %}
+</div>
+
+{% if latest %}
+<section class="wrap narrow sample">
+  <h2 class="section-title">Exemple : le dernier numéro</h2>
+  <div class="sample-card">
+    <p class="kicker">N°{{ latest.number }} · {{ latest.date_label }}</p>
+    <h3><a href="archives/{{ latest.week }}/">{{ latest.title }}</a></h3>
+    <p>{{ latest.intro }}</p>
+    <p class="label">L'info de la semaine</p>
+    <h4>{{ latest.top.headline }}</h4>
+    <p>{{ latest.top.summary | truncate(320) }}</p>
+    <p><a href="archives/{{ latest.week }}/">Lire le numéro complet →</a></p>
+  </div>
+  {% if issues | length > 1 %}
+  <h2 class="section-title">Numéros précédents</h2>
+  <ul class="issue-list">
+    {% for i in issues[1:6] %}
+    <li><a href="archives/{{ i.week }}/">{{ i.title }}</a><span>N°{{ i.number }} · {{ i.date_label }}</span></li>
+    {% endfor %}
+  </ul>
+  <p><a href="archives/">Toutes les archives →</a></p>
+  {% endif %}
+</section>
+{% endif %}
+{% endblock %}

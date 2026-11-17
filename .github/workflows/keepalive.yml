@@ -1,0 +1,44 @@
+name: Keepalive (anti-désactivation)
+
+# GitHub désactive les workflows planifiés d'un dépôt public après 60 jours sans activité.
+# Le commit hebdomadaire de la newsletter suffit normalement, mais si elle échoue plusieurs
+# semaines de suite (ou si vous la mettez en pause), ce workflow mensuel :
+#   1. fait un petit commit dans data/keepalive.txt si rien n'a été commité depuis 25 jours ;
+#   2. réactive le workflow de la newsletter s'il a été désactivé.
+
+on:
+  schedule:
+    - cron: "0 7 1 * *" # le 1er de chaque mois à 07:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  keepalive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Commit de keepalive si le dépôt est inactif depuis 25 jours
+        run: |
+          last=$(git log -1 --format=%ct)
+          days=$(( ( $(date +%s) - last ) / 86400 ))
+          echo "Dernier commit il y a $days jour(s)."
+          if [ "$days" -lt 25 ]; then
+            echo "Dépôt actif, rien à faire."
+            exit 0
+          fi
+          date -u +"%Y-%m-%dT%H:%M:%SZ" > data/keepalive.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/keepalive.txt
+          git commit -m "Keepalive mensuel [automatique]"
+          git push
+
+      - name: S'assurer que le workflow de la newsletter est actif
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow enable newsletter.yml --repo "$GITHUB_REPOSITORY" || echo "Déjà actif (ou action impossible)."

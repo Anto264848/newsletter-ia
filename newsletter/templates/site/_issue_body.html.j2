@@ -1,0 +1,40 @@
+<article class="issue">
+  <p class="kicker">N°{{ issue.number }} · {{ issue.date_label }}</p>
+  <h1>{{ issue.title }}</h1>
+  <p class="intro">{{ issue.intro }}</p>
+
+  <section class="top-story">
+    <p class="label">L'info de la semaine</p>
+    <h2>{{ issue.top.headline }}</h2>
+    <p>{{ issue.top.summary }}</p>
+    <h3>Pourquoi c'est important pour vous</h3>
+    <p>{{ issue.top.why_it_matters }}</p>
+    <p class="source"><a href="{{ issue.top.url }}" rel="noopener">Lire l'article ({{ issue.top.source }}) →</a>{% if issue.top.related_sources %} <span>· aussi couvert par {{ issue.top.related_sources | join(', ') }}</span>{% endif %}</p>
+  </section>
+
+  <section class="briefs">
+    <p class="label">En bref</p>
+    {% for b in issue.briefs %}
+    <div class="brief">
+      <h3>{{ b.headline }}</h3>
+      <p>{{ b.summary }}</p>
+      <p class="source"><a href="{{ b.url }}" rel="noopener">Source : {{ b.source }} →</a></p>
+    </div>
+    {% endfor %}
+  </section>
+
+  <div class="boxes">
+    <section class="box word">
+      <p class="label">Le mot de la semaine</p>
+      <h3>{{ issue.word.term }}</h3>
+      <p>{{ issue.word.explanation }}</p>
+    </section>
+    <section class="box tool">
+      <p class="label">L'outil à tester</p>
+      <h3>{% if issue.tool.url %}<a href="{{ issue.tool.url }}" rel="noopener">{{ issue.tool.name }}</a>{% else %}{{ issue.tool.name }}{% endif %}</h3>
+      <p>{{ issue.tool.description }}</p>
+    </section>
+  </div>
+
+  <p class="conclusion">{{ issue.conclusion }}</p>
+</article>

@@ -1,0 +1,39 @@
+name: Tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.13"]
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: requirements*.txt
+
+      - name: Installer les dépendances
+        run: pip install -r requirements-dev.txt
+
+      - name: Tests unitaires (sans réseau)
+        run: python -m pytest -v
+
+      - name: Vérifier la syntaxe des workflows GitHub Actions
+        run: actionlint -color
+
+      # Utilise les vraies sources (réseau) : informatif, n'échoue pas la CI si un site est en panne.
+      - name: Dry-run de bout en bout (simulation, sans IA ni envoi)
+        continue-on-error: true
+        run: python main.py --dry-run --mock

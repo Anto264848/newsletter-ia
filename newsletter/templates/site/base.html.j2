@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ page_title }}</title>
+<meta name="description" content="{{ description }}">
+{% if canonical %}<link rel="canonical" href="{{ canonical }}">
+{% endif %}
+<meta property="og:site_name" content="{{ name }}">
+<meta property="og:title" content="{{ page_title }}">
+<meta property="og:description" content="{{ description }}">
+<meta property="og:type" content="{{ og_type | default('website') }}">
+<meta property="og:locale" content="fr_FR">
+{% if canonical %}<meta property="og:url" content="{{ canonical }}">
+{% endif %}
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="{{ page_title }}">
+<meta name="twitter:description" content="{{ description }}">
+<link rel="alternate" type="application/rss+xml" title="{{ name }}" href="{{ root }}feed.xml">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23b4532a'/%3E%3Ctext x='50' y='68' font-size='52' text-anchor='middle' fill='white' font-family='Georgia'%3EIA%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="{{ root }}assets/style.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="{{ root }}">{{ name }}</a>
+    <nav><a href="{{ root }}archives/">Archives</a><a href="{{ root }}#inscription" class="nav-cta">S'inscrire</a></nav>
+  </div>
+</header>
+<main>
+{% block content %}{% endblock %}
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p><strong>{{ name }}</strong> — {{ tagline }}</p>
+    <p>Rédigée avec l'aide d'une intelligence artificielle, à partir d'articles de presse cités en lien. Gratuite, sans publicité, désinscription en un clic.</p>
+    <p><a href="{{ root }}archives/">Archives</a> · <a href="{{ root }}feed.xml">Flux RSS</a></p>
+  </div>
+</footer>
+</body>
+</html>

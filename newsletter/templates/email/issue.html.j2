@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="x-apple-disable-message-reformatting">
+<meta name="color-scheme" content="light">
+<title>{{ issue.title }}</title>
+<style>
+  /* Seul style non inline : adaptation mobile (ignoré sans risque par les clients qui ne le gèrent pas). */
+  @media only screen and (max-width: 620px) {
+    .container { width: 100% !important; }
+    .px { padding-left: 18px !important; padding-right: 18px !important; }
+    .h1 { font-size: 24px !important; line-height: 30px !important; }
+  }
+</style>
+</head>
+<body style="margin:0;padding:0;background-color:#f4f1ea;-webkit-text-size-adjust:100%;">
+<div style="display:none;max-height:0;overflow:hidden;mso-hide:all;font-size:1px;line-height:1px;color:#f4f1ea;">{{ preheader }}</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f4f1ea;">
+<tr><td align="center" style="padding:24px 8px;">
+<table role="presentation" class="container" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px;max-width:600px;background-color:#ffffff;border-radius:12px;">
+
+  <!-- En-tête -->
+  <tr><td class="px" style="padding:28px 36px 8px 36px;font-family:Georgia,'Times New Roman',serif;">
+    <p style="margin:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#b4532a;font-weight:bold;">{{ name }} · n°{{ issue.number }} · {{ issue.date_label }}</p>
+    <h1 class="h1" style="margin:12px 0 0 0;font-family:Georgia,'Times New Roman',serif;font-size:28px;line-height:34px;color:#1f2a2e;font-weight:bold;">{{ issue.title }}</h1>
+    <p style="margin:14px 0 0 0;font-family:Georgia,'Times New Roman',serif;font-size:17px;line-height:26px;color:#3d4a4f;">{{ issue.intro }}</p>
+  </td></tr>
+
+  <!-- Info de la semaine -->
+  <tr><td class="px" style="padding:24px 36px 4px 36px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#fbf3e9;border-left:4px solid #b4532a;border-radius:6px;">
+      <tr><td style="padding:20px 22px;font-family:Arial,Helvetica,sans-serif;">
+        <p style="margin:0;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#b4532a;font-weight:bold;">L'info de la semaine</p>
+        <h2 style="margin:8px 0 10px 0;font-family:Georgia,'Times New Roman',serif;font-size:22px;line-height:28px;color:#1f2a2e;">{{ issue.top.headline }}</h2>
+        <p style="margin:0 0 14px 0;font-size:16px;line-height:25px;color:#2c3639;">{{ issue.top.summary }}</p>
+        <p style="margin:0 0 6px 0;font-size:14px;font-weight:bold;color:#1f2a2e;">Pourquoi c'est important pour vous</p>
+        <p style="margin:0 0 14px 0;font-size:16px;line-height:25px;color:#2c3639;">{{ issue.top.why_it_matters }}</p>
+        <p style="margin:0;font-size:14px;line-height:20px;"><a href="{{ issue.top.url }}" style="color:#b4532a;font-weight:bold;text-decoration:underline;">Lire l'article ({{ issue.top.source }}) →</a>{% if issue.top.related_sources %}<span style="color:#6b767a;"> · aussi couvert par {{ issue.top.related_sources | join(', ') }}</span>{% endif %}</p>
+      </td></tr>
+    </table>
+  </td></tr>
+
+  <!-- En bref -->
+  <tr><td class="px" style="padding:24px 36px 0 36px;font-family:Arial,Helvetica,sans-serif;">
+    <p style="margin:0 0 4px 0;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#2f6f73;font-weight:bold;">En bref</p>
+  </td></tr>
+  {% for b in issue.briefs %}
+  <tr><td class="px" style="padding:12px 36px 12px 36px;font-family:Arial,Helvetica,sans-serif;{% if not loop.last %}border-bottom:1px solid #ece7dd;{% endif %}">
+    <h3 style="margin:0 0 6px 0;font-family:Georgia,'Times New Roman',serif;font-size:18px;line-height:24px;color:#1f2a2e;">{{ b.headline }}</h3>
+    <p style="margin:0 0 6px 0;font-size:15px;line-height:23px;color:#2c3639;">{{ b.summary }}</p>
+    <p style="margin:0;font-size:13px;"><a href="{{ b.url }}" style="color:#2f6f73;text-decoration:underline;">Source : {{ b.source }} →</a></p>
+  </td></tr>
+  {% endfor %}
+
+  <!-- Mot de la semaine -->
+  <tr><td class="px" style="padding:24px 36px 4px 36px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#eaf3f2;border-radius:6px;">
+      <tr><td style="padding:18px 22px;font-family:Arial,Helvetica,sans-serif;">
+        <p style="margin:0;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#2f6f73;font-weight:bold;">Le mot de la semaine</p>
+        <p style="margin:8px 0 6px 0;font-family:Georgia,'Times New Roman',serif;font-size:20px;color:#1f2a2e;font-weight:bold;">{{ issue.word.term }}</p>
+        <p style="margin:0;font-size:15px;line-height:23px;color:#2c3639;">{{ issue.word.explanation }}</p>
+      </td></tr>
+    </table>
+  </td></tr>
+
+  <!-- Outil à tester -->
+  <tr><td class="px" style="padding:16px 36px 4px 36px;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:#f3eff8;border-radius:6px;">
+      <tr><td style="padding:18px 22px;font-family:Arial,Helvetica,sans-serif;">
+        <p style="margin:0;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#5b4a8a;font-weight:bold;">L'outil à tester</p>
+        <p style="margin:8px 0 6px 0;font-family:Georgia,'Times New Roman',serif;font-size:20px;color:#1f2a2e;font-weight:bold;">{% if issue.tool.url %}<a href="{{ issue.tool.url }}" style="color:#1f2a2e;text-decoration:underline;">{{ issue.tool.name }}</a>{% else %}{{ issue.tool.name }}{% endif %}</p>
+        <p style="margin:0;font-size:15px;line-height:23px;color:#2c3639;">{{ issue.tool.description }}</p>
+      </td></tr>
+    </table>
+  </td></tr>
+
+  <!-- Conclusion -->
+  <tr><td class="px" style="padding:24px 36px 28px 36px;font-family:Georgia,'Times New Roman',serif;">
+    <p style="margin:0;font-size:17px;line-height:26px;color:#3d4a4f;">{{ issue.conclusion }}</p>
+  </td></tr>
+
+  <!-- Pied de page -->
+  <tr><td class="px" style="padding:20px 36px 26px 36px;background-color:#1f2a2e;border-radius:0 0 12px 12px;font-family:Arial,Helvetica,sans-serif;">
+    <p style="margin:0 0 8px 0;font-size:13px;line-height:20px;color:#d7dcdd;">Cette newsletter est rédigée avec l'aide d'une intelligence artificielle, à partir d'articles de presse dont les liens sont cités. Les résumés peuvent contenir des imprécisions : en cas de doute, fiez-vous à l'article d'origine.</p>
+    <p style="margin:0;font-size:13px;line-height:20px;color:#d7dcdd;">
+      {% if archives_url %}<a href="{{ archives_url }}" style="color:#f0b68f;text-decoration:underline;">Archives</a> · {% endif %}{% if web_url %}<a href="{{ web_url }}" style="color:#f0b68f;text-decoration:underline;">Voir en ligne</a> · {% endif %}<a href="{{ unsubscribe_url }}" style="color:#f0b68f;text-decoration:underline;">{{ unsubscribe_label }}</a>
+    </p>
+  </td></tr>
+
+</table>
+</td></tr>
+</table>
+</body>
+</html>

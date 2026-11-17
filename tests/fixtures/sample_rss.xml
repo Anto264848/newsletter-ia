@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+  <title>Exemple Tech</title>
+  <link>https://exemple-tech.fr</link>
+  <description>Flux de test</description>
+  <item>
+    <title>OpenAI lance un nouvel assistant vocal pour les smartphones</title>
+    <link>https://exemple-tech.fr/openai-assistant-vocal?utm_source=rss</link>
+    <pubDate>Sun, 15 Nov 2026 10:00:00 +0000</pubDate>
+    <description><![CDATA[<p>L'entreprise <strong>OpenAI</strong> a présenté un assistant vocal &amp; gratuit.</p>]]></description>
+  </item>
+  <item>
+    <title>Recette de la tarte aux pommes</title>
+    <link>https://exemple-tech.fr/tarte</link>
+    <pubDate>Sat, 14 Nov 2026 09:00:00 +0000</pubDate>
+    <description>Rien à voir avec la technologie.</description>
+  </item>
+  <item>
+    <title>Un vieil article sur l'intelligence artificielle</title>
+    <link>https://exemple-tech.fr/vieux</link>
+    <pubDate>Mon, 02 Nov 2026 09:00:00 +0000</pubDate>
+    <description>Trop ancien pour être retenu.</description>
+  </item>
+  <item>
+    <title>Article sans date</title>
+    <link>https://exemple-tech.fr/sans-date</link>
+    <description>Pas de date : ignoré.</description>
+  </item>
+</channel>
+</rss>

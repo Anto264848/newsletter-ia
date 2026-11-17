@@ -1,0 +1,12 @@
+{% extends "site/base.html.j2" %}
+{% block content %}
+<div class="wrap narrow page">
+  <p class="crumbs"><a href="../">← Toutes les archives</a></p>
+  {% include "site/_issue_body.html.j2" %}
+  <nav class="prev-next">
+    {% if newer %}<a href="../{{ newer.week }}/">← N°{{ newer.number }} (plus récent)</a>{% else %}<span></span>{% endif %}
+    {% if older %}<a href="../{{ older.week }}/">N°{{ older.number }} (plus ancien) →</a>{% endif %}
+  </nav>
+  {% include "site/_subscribe.html.j2" %}
+</div>
+{% endblock %}

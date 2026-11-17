@@ -1,0 +1,143 @@
+# Réglages généraux de la newsletter. Tout ce qui est ici est PUBLIC (pas de secret !).
+# Les secrets (clés API, email expéditeur, ID de liste) sont dans les GitHub Secrets.
+
+newsletter:
+  # Nom affiché partout (email, site, RSS). Voir DECISIONS.md pour les 3 propositions.
+  name: "L'IA sans jargon"
+  # Promesse en une phrase (landing page + meta description).
+  tagline: "Chaque lundi, l'actu de l'IA et de la data expliquée simplement, en 5 minutes."
+  language: "fr"
+  # Nom affiché comme expéditeur dans la boîte mail.
+  sender_name: "L'IA sans jargon"
+
+site:
+  # URL publique du site GitHub Pages, sans "/" final.
+  # Laisser vide : elle est déduite automatiquement dans GitHub Actions
+  # (https://<utilisateur>.github.io/<depot>).
+  url: ""
+  # URL du formulaire d'inscription Brevo (double opt-in). Voir SETUP.md, étape 4.
+  # Exemple : "https://xxxx.sibforms.com/serve/MUIFA..."  (c'est une URL publique, pas un secret)
+  subscribe_form_url: ""
+
+collect:
+  # Fenêtre de collecte en jours.
+  days: 7
+  # Délai max par requête HTTP (secondes) et nombre de tentatives.
+  timeout: 20
+  retries: 3
+  # Longueur max de l'extrait envoyé à l'IA (caractères).
+  excerpt_chars: 600
+
+select:
+  # Nombre de candidats envoyés à l'IA pour le classement final.
+  candidates_for_ai: 25
+  # Nombre d'actus "En bref" visées (en plus de l'info de la semaine).
+  briefs_min: 4
+  briefs_max: 6
+  # Minimum d'actus valides pour envoyer (info de la semaine + brèves). En dessous : pas d'envoi.
+  min_valid_items: 4
+  # Seuil de similarité de titres pour considérer deux articles comme le même sujet (0 à 1).
+  similarity_threshold: 0.4
+  # Mots-clés "grand public" qui augmentent le score d'un article.
+  general_public_keywords:
+    - chatgpt
+    - gemini
+    - claude
+    - copilot
+    - siri
+    - alexa
+    - smartphone
+    - iphone
+    - android
+    - google
+    - apple
+    - meta
+    - microsoft
+    - openai
+    - mistral
+    - emploi
+    - travail
+    - jobs
+    - école
+    - school
+    - étudiant
+    - student
+    - santé
+    - health
+    - vie privée
+    - privacy
+    - données personnelles
+    - rgpd
+    - gdpr
+    - régulation
+    - regulation
+    - ai act
+    - loi
+    - law
+    - arnaque
+    - scam
+    - deepfake
+    - désinformation
+    - misinformation
+    - enfants
+    - kids
+    - image
+    - vidéo
+    - video
+    - musique
+    - music
+    - gratuit
+    - free
+  # Mots-clés qui identifient un article "IA / data" (utilisé pour filtrer les flux généralistes).
+  topic_keywords:
+    - " ia "
+    - "l'ia"
+    - "d'ia"
+    - " ai "
+    - "intelligence artificielle"
+    - "artificial intelligence"
+    - "machine learning"
+    - "apprentissage automatique"
+    - "deep learning"
+    - "llm"
+    - "chatbot"
+    - "chatgpt"
+    - "gpt"
+    - "gemini"
+    - "claude"
+    - "anthropic"
+    - "openai"
+    - "mistral"
+    - "llama"
+    - "copilot"
+    - "deepmind"
+    - "hugging face"
+    - "neural"
+    - "neuronal"
+    - "agent"
+    - "générati"
+    - "generative"
+    - "data center"
+    - "datacenter"
+    - "centre de données"
+    - "données"
+    - "big data"
+    - "nvidia"
+    - "algorithm"
+    - "algorithme"
+    - "deepfake"
+    - "robot"
+
+ai:
+  # Modèle par défaut si la variable d'environnement GEMINI_MODEL n'est pas définie.
+  gemini_model: "gemini-3.6-flash"
+  # Modèles Gemini de secours (essayés si le premier n'existe plus / refuse).
+  gemini_backup_models:
+    - "gemini-flash-latest"
+    - "gemini-3.5-flash-lite"
+  # Fournisseur de secours compatible OpenAI (utilisé seulement si FALLBACK_API_KEY est défini).
+  fallback_base_url: "https://api.groq.com/openai/v1"
+  fallback_model: "openai/gpt-oss-120b"
+  temperature: 0.7
+  # Garde-fou : nombre maximal d'appels IA par numéro (retries compris).
+  max_calls: 6

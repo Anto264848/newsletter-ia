@@ -1,0 +1,10 @@
+<section class="subscribe" id="inscription">
+  <h2>Recevez-la chaque lundi</h2>
+  <p>Gratuit. Un email par semaine. Confirmation par email (double opt-in) et désinscription en un clic.</p>
+  {% if form_url %}
+  <iframe class="subscribe-frame" src="{{ form_url }}" title="Formulaire d'inscription à {{ name }}" loading="lazy" scrolling="auto"></iframe>
+  <p class="small">Le formulaire ne s'affiche pas ? <a href="{{ form_url }}" rel="noopener">Ouvrez-le dans un nouvel onglet</a>.</p>
+  {% else %}
+  <p class="notice">Le formulaire d'inscription arrive très bientôt.</p>
+  {% endif %}
+</section>

@@ -1,0 +1,7 @@
+{
+  "hits": [
+    {"title": "A new open-source LLM beats the benchmarks", "url": "https://example.org/llm", "created_at_i": 1794830400, "points": 420, "num_comments": 180, "objectID": "1"},
+    {"title": "Ask HN: What AI tools do you use?", "url": null, "created_at_i": 1794830400, "points": 300, "num_comments": 500, "objectID": "2"},
+    {"title": "Data privacy and AI training", "url": "https://example.org/privacy", "created_at_i": 1794736800, "points": 210, "num_comments": 90, "objectID": "3", "story_text": "<p>Discussion about <b>privacy</b>.</p>"}
+  ]
+}

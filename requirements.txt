@@ -1,0 +1,6 @@
+# Dépendances d'exécution (versions épinglées)
+requests==2.34.2
+feedparser==6.0.14
+PyYAML==6.0.3
+pydantic==2.14.3
+Jinja2==3.1.6
